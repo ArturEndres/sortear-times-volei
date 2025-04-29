@@ -1,139 +1,307 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorteador de Times de Vôlei</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Configuração do Sorteio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
 
-        h1 {
-            margin-bottom: 10px;
-        }
+    h1 {
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
 
-        .disclaimer {
-            font-size: 14px;
-            color: #555;
-            max-width: 600px;
-            margin-bottom: 30px;
-        }
+    form {
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      max-width: 600px;
+      width: 100%;
+      transition: all 0.3s ease-in-out;
+    }
 
-        .times {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
+    fieldset {
+      border: none;
+      margin-bottom: 15px;
+      text-align: left;
+    }
 
-        .time {
-            background-color: #e0e0e0;
-            border-radius: 10px;
-            padding: 15px 20px;
-            width: 250px;
-            min-height: 220px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+    legend {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #e0e0e0;
+    }
 
-        .time h2 {
-            margin-bottom: 10px;
-        }
+    .participants-list {
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #444;
+      padding: 10px;
+      border-radius: 5px;
+      background: #2c2c2c;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 8px;
+    }
 
-        .time ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            text-align: center;
-        }
+    .participants-list label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+      background-color: #2a2a2a;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background 0.3s;
+      color: #ddd;
+      font-size: 15px;
+    }
 
-        .time li {
-            margin: 4px 0;
-        }
+    .participants-list label:hover {
+      background-color: #333;
+    }
 
-        button {
-            margin-top: 30px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    .participants-list input[type="checkbox"] {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #777;
+      border-radius: 4px;
+      background-color: #1a1a1a;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
 
-        button:hover {
-            background-color: #45a049;
-        }
+    .participants-list input[type="checkbox"]:checked {
+      background-color: #00bcd4;
+      border-color: #00bcd4;
+    }
 
-        @media (max-width: 768px) {
-            .times {
-                flex-direction: column;
-            }
+    .participants-list input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 1px;
+      width: 6px;
+      height: 12px;
+      border: solid black;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
 
-            .time {
-                width: 80%;
-            }
-        }
-    </style>
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      background-color: #2c2c2c;
+      color: #eee;
+      border: 1px solid #444;
+      resize: vertical;
+    }
+
+    .btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #00bcd4;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #00acc1;
+    }
+
+    #result {
+      margin-top: 30px;
+      text-align: left;
+      width: 100%;
+      max-width: 600px;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .team {
+      margin-bottom: 15px;
+    }
+
+    .team h3 {
+      margin: 0 0 5px 0;
+      color: #00bcd4;
+    }
+
+    .team p {
+      color: #ccc;
+    }
+
+    .absent {
+      color: #999;
+      font-style: italic;
+      margin-top: 10px;
+    }
+
+    .selected-count {
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    details summary {
+      cursor: pointer;
+      font-weight: bold;
+      color: #00bcd4;
+      margin-top: 10px;
+      outline: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-    <h1>Sorteador de Times de Vôlei</h1>
-    <p class="disclaimer">Os jogadores são distribuídos aleatoriamente entre três times (A, B e C), buscando manter uma divisão equilibrada e imparcial a cada sorteio.</p>
+  <h1>Configurar Equipes</h1>
+  <form id="configForm">
+    <fieldset>
+      <legend>Quantos times?</legend>
+      <label><input type="radio" name="teamCount" value="2"> 2 times</label>
+      <label><input type="radio" name="teamCount" value="3" checked> 3 times</label>
+    </fieldset>
 
-    <div class="times">
-        <div class="time">
-            <h2>Time A</h2>
-            <ul id="timeA"></ul>
-        </div>
-        <div class="time">
-            <h2>Time B</h2>
-            <ul id="timeB"></ul>
-        </div>
-        <div class="time">
-            <h2>Time C</h2>
-            <ul id="timeC"></ul>
-        </div>
-    </div>
+    <fieldset>
+      <legend>Selecione os participantes</legend>
+      <div class="selected-count" id="selectedCount">Selecionados: 0</div>
+      <div class="participants-list" id="participantsContainer">
+        <!-- Checkboxes serão inseridos aqui -->
+      </div>
+    </fieldset>
 
-    <button onclick="sortearTimes()">Sortear Novamente</button>
+    <details>
+      <summary>Mais opções de participantes</summary>
+      <fieldset>
+        <legend>Participantes personalizados (1 por linha)</legend>
+        <textarea id="customParticipants" rows="5" placeholder="Digite um nome por linha"></textarea>
+      </fieldset>
+      <fieldset>
+        <legend>Fonte dos participantes</legend>
+        <label><input type="radio" name="sourceOption" value="default" checked> Usar lista marcada</label><br/>
+        <label><input type="radio" name="sourceOption" value="custom"> Usar personalizados</label><br/>
+        <label><input type="radio" name="sourceOption" value="both"> Usar ambos</label>
+      </fieldset>
+    </details>
 
-    <script>
-        const participantes = [
-            "Bruna Fernandes", "Bruna Poletti", "Leonardo", "Artur", "Júlia",
-            "Raquel", "Lucas", "Ricardo", "Cinara", "Adriano", "João Reis", "Kauã",
-            "Aline", "Álvaro", "Lisiane", "Alícia", "Pet", "João Marcos"
-        ];
+    <button type="submit" class="btn">Iniciar Sorteio</button>
+  </form>
 
-        function sortearTimes() {
-            const embaralhado = [...participantes].sort(() => Math.random() - 0.5);
-            const times = [[], [], []];
+  <div id="result" style="display:none;"></div>
 
-            embaralhado.forEach((pessoa, i) => {
-                times[i % 3].push(pessoa);
-            });
+  <script>
+    const participantes = [
+      "Bruna F.", "Bruna P.", "Leonardo", "Artur", "Júlia",
+      "Raquel", "Lucas", "Ricardo", "Cinara", "Adriano", "João R.", "Kauã",
+      "Aline", "Álvaro", "Lisiane", "Alícia", "Peterson", "João M."
+    ];
 
-            document.getElementById("timeA").innerHTML = times[0].map(p => `<li>${p}</li>`).join("");
-            document.getElementById("timeB").innerHTML = times[1].map(p => `<li>${p}</li>`).join("");
-            document.getElementById("timeC").innerHTML = times[2].map(p => `<li>${p}</li>`).join("");
+    const container = document.getElementById('participantsContainer');
+    const selectedCount = document.getElementById('selectedCount');
+
+    function updateSelectedCount() {
+      const count = document.querySelectorAll('input[name="participant"]:checked').length;
+      selectedCount.textContent = `Selecionados: ${count}`;
+    }
+
+    participantes.forEach(nome => {
+      const label = document.createElement('label');
+      label.innerHTML = `<input type="checkbox" name="participant" value="${nome}" checked> ${nome}`;
+      container.appendChild(label);
+    });
+
+    container.addEventListener('change', updateSelectedCount);
+    updateSelectedCount();
+
+    document.getElementById('configForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const teamCount = parseInt(document.querySelector('input[name="teamCount"]:checked').value);
+      const sourceOption = document.querySelector('input[name="sourceOption"]:checked')?.value;
+      let selected = [];
+
+      if (sourceOption === 'default' || sourceOption === 'both') {
+        selected = Array.from(document.querySelectorAll('input[name="participant"]:checked')).map(cb => cb.value);
+      }
+
+      if (sourceOption === 'custom' || sourceOption === 'both') {
+        const customInput = document.getElementById('customParticipants').value;
+        const customNames = customInput.split('\n').map(n => n.trim()).filter(n => n);
+        selected = selected.concat(customNames);
+      }
+
+      const ausentes = (sourceOption === 'custom') ? [] : participantes.filter(p => !selected.includes(p));
+      const shuffled = [...selected].sort(() => Math.random() - 0.5);
+
+      const teams = Array.from({ length: teamCount }, () => []);
+      const reservas = [];
+
+      shuffled.forEach((p, i) => {
+        const teamIndex = i % teamCount;
+        if (teams[teamIndex].length < 6) {
+          teams[teamIndex].push(p);
+        } else {
+          reservas.push(p);
         }
+      });
 
-        // Sorteio automático ao carregar
-        sortearTimes();
-    </script>
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.display = 'block';
+      resultDiv.innerHTML = '';
+
+      teams.forEach((team, idx) => {
+        const div = document.createElement('div');
+        div.className = 'team';
+        div.innerHTML = `<h3>Time ${idx + 1} (${team.length})</h3><p>${team.join(', ')}</p>`;
+        resultDiv.appendChild(div);
+      });
+
+      if (reservas.length > 0) {
+        const reservasDiv = document.createElement('div');
+        reservasDiv.className = 'team';
+        reservasDiv.innerHTML = `<h3>Reservas (${reservas.length})</h3><p>${reservas.join(', ')}</p>`;
+        resultDiv.appendChild(reservasDiv);
+      }
+
+      if (ausentes.length > 0) {
+        const ausentesDiv = document.createElement('div');
+        ausentesDiv.className = 'absent';
+        ausentesDiv.innerText = `Ausentes: ${ausentes.join(', ')}`;
+        resultDiv.appendChild(ausentesDiv);
+      }
+
+      resultDiv.scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
