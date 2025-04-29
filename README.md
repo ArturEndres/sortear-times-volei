@@ -37,10 +37,12 @@ Configure os times e os participantes conforme necessário.
 
 Clique em "Iniciar Sorteio" para ver o resultado.
 
-🛠 Personalização
+## 🛠 Personalização
+
 A lista de participantes padrão pode ser editada diretamente no script JS.
-
 Você pode ajustar os estilos via CSS embutido para adaptar ao seu gosto ou branding.
+---
 
-📄 Licença
+## 📄 Licença
 Este projeto está sob a licença MIT. Sinta-se livre para usar, modificar e compartilhar.
+---
