@@ -31,11 +31,9 @@ Uma interface web moderna para sortear participantes de 2 a 3 equipes de forma s
 1. Clone este repositório:
    ```bash
    git clone https://github.com/ArturEndres/sortear-times-volei.git
-Abra o arquivo index.html no navegador.
-
-Configure os times e os participantes conforme necessário.
-
-Clique em "Iniciar Sorteio" para ver o resultado.
+2. Abra o arquivo index.html no navegador.
+3. Configure os times e os participantes conforme necessário.
+4. Clique em "Iniciar Sorteio" para ver o resultado.
 
 ## 🛠 Personalização
 
